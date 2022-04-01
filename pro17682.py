@@ -9,6 +9,28 @@
 Single(S), Double(D), Triple(T)은 점수마다 하나씩 존재한다.
 스타상(*), 아차상(#)은 점수마다 둘 중 하나만 존재할 수 있으며, 존재하지 않을 수도 있다.
 """
+def otherSolution(dartResult):
+    point = []
+    answer = []
+    dartResult = dartResult.replace('10','k')
+    point = ['10' if i == 'k' else i for i in dartResult]
+    print(point)
+
+    i = -1
+    sdt = ['S', 'D', 'T']
+    for j in point:
+        if j in sdt :
+            answer[i] = answer[i] ** (sdt.index(j)+1)
+        elif j == '*':
+            answer[i] = answer[i] * 2
+            if i != 0 :
+                answer[i - 1] = answer[i - 1] * 2
+        elif j == '#':
+            answer[i] = answer[i] * (-1)
+        else:
+            answer.append(int(j))
+            i += 1
+    return sum(answer)
 
 def solution(dartResult):
     flag = 0
@@ -96,6 +118,6 @@ def solution2(dartResult):
 
     return answer
 
-dartResult = "1S*2T*3S"
-print(solution(dartResult))
+dartResult = "10S*2T*3S"
+print(otherSolution(dartResult))
 
